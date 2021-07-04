@@ -1,0 +1,225 @@
+@extends('body')
+@section('content')
+
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+
+<div id="toolbar">
+</div>
+
+ <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <label><strong>Status :</strong></label>
+                <select id='status' class="form-control" style="width: 200px">
+                    <option value="">--Select Status--</option>
+                    <option value="1">Active</option>
+                    <option value="0">Disabled</option>
+                </select>
+            </div>
+        </div>
+</div>
+                 
+<table id="datavehicles" class="display" style="margin-top:4rem !important;">
+  <thead>
+    <tr>
+      <th></th>
+      <td></td>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+<tfoot style="border-bottom: 1px solid black; position:absolute; top:0; border-top: 1px solid black; width:100%;">
+      <th style="border-top:0;" class="one"></th>
+      <th style="border-top:0;" class="two"></td>
+      <th style="border-top:0;" class="three">
+      
+      </th>
+      <th style="border-top:0;" class="four"></th>
+      <th style="border-top:0;" class="five"></th>
+      <th style="border-top:0;" class="six"></th>
+      <th style="border-top:0;" class="seven"></th>
+      <th style="border-top:0;" class="eight"></th>
+      <th style="border-top:0;" class="nine"></th>
+      <th style="border-top:0;" class="ten"></th>
+      <th style="border-top:0;" class="eleven"></th>
+</tfoot>
+</table>
+           
+<script>
+$("body").on('change','.js-switch', function () {
+        let status = $(this).prop('checked') === true ? 1 : 0;
+        let vehicleId = $(this).data('id');
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '{{ route('vehicles.update.status') }}',
+            data: {'status': status, 'vehicle_id': vehicleId},
+            success: function (data) {
+                console.log(data.message);
+                    toastr.options.closeButton = true;
+                    toastr.options.closeMethod = 'fadeOut';
+                    toastr.options.closeDuration = 100;
+                    toastr.success(data.message);
+            }
+        });
+});
+</script>
+
+<script>
+(function( $ ){
+$(document).ready(function() {
+
+
+  var table = $('#datavehicles').DataTable({
+    responsive: true,
+    select: false,
+    ordering: true,
+ processing: true,
+        serverSide: true,
+    ajax: {
+            url: '{{ route('vehicles.getvehicles') }}',
+            method: 'GET',
+            type: 'GET',
+            data: function (d) {
+                     d.from_date = $("#from_date").val(),
+                     d.to_date = $("#to_date").val(),
+                     d.status = $('#status').val(),
+                     d.search = $('input[type="search"]').val()
+            }
+    },
+    columns: [
+      { data: "id", title: "ID", orderable: true,  },
+      { data: "imageurl", title: "Image", orderable: false, searchable: false },
+      { data: "vehiclebrand", title: "Brand", orderable: true, },
+      { data: "vehiclemodel", title: "Model", orderable: true, },
+      { data: "vehiclebodywork", title: "Bodywork", orderable: true, },
+      { data: "vehicleengine", title: "Engine", orderable: true, },
+      { data: "vehiclecolor", title: "Color", orderable: true, },
+      { data: "created_at", title: "Created at", orderable: false, searchable: false },
+      { data: "updated_at", title: "Updated at", orderable: false, searchable: false },
+      { data: 'status', title: 'Status', orderable: false, searchable: false, width: '10px', sClass: "selectCol" },
+      { data: 'action', title: 'Action', orderable: false, searchable: false, width: '10px', sClass: "selectCol" },
+     
+    ],
+    fnDrawCallback: function() { jQuery('.my_switch').bootstrapToggle(); },
+      initComplete: function () {
+          var n = 0;
+            this.api().columns().every( function (n) {
+                n++;
+                var column = this;
+                var select = $('<select name="filter-vehicle-'+n+'" id="filter-vehicle-'+n+'"><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+                var j = 1;
+                column.data().unique().sort().each( function ( d, j ) {
+                    j++;
+                    if(d == 'Ford'){ j = 1;}
+                    if(d == 'Toyota'){ j = 2;}
+                    if(d == 'Skoda'){ j = 3;}
+                    if(d == 'Wolkswagen'){ j = 4;}
+                    if(d == 'Subaru'){ j = 5;}
+                    if(d == 'Supra'){ j = 6;}
+
+                    select.append( '<option id="brandoption_'+d+'" data-brand="'+j+'" value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
+    });
+
+            $('#filter-vehicle-4').empty();
+
+            $('.input-daterange').datepicker({
+                 dateFormat: 'dd-mm-yy',
+                 autoclose: true,
+                 todayHighlight: true
+            });
+
+            $('#dateSearch').on('click', function() {
+                //console.log('search');
+                table.draw();
+            });
+
+             $('#status').change(function(){
+                table.draw();
+            });
+        
+});
+
+})( jQuery );
+</script>
+<script type="text/javascript">
+(function( $ ){
+$("body").on('change','select[name="filter-vehicle-3"]', function () {
+             
+               //var brandID = jQuery(this).val;
+               
+               var brandID = jQuery(this).find(':selected').attr('data-brand');
+
+               if(brandID)
+               {
+                  jQuery.ajax({
+                     url : '/vehicles/getmodels/' +brandID,
+                     type : "GET",
+                     dataType : "json",
+                     success:function(data)
+                     {
+                        console.log(data);
+                        jQuery('select[name="filter-vehicle-4"]').empty();
+                        jQuery.each(data, function(key,value){
+                           $('select[name="filter-vehicle-4"]').append('<option data-model="'+ key +'" value="'+ value +'">'+ value +'</option>');
+                        });
+                       $('select[name="filter-vehicle-4"]').css("visibility", "visible");
+                     }
+                  });
+               }
+               else
+               {
+                  $('select[name="filter-vehicle-4"]').empty();
+               }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+
+}, false);
+
+})( jQuery );
+</script>
+{{-- <script>
+(function( $ ){
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+
+var paramValue = getQueryVariable('q');
+console.log(paramValue);
+
+
+})( jQuery );
+</script> --}}
+@endsection
+

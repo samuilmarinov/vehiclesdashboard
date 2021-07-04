@@ -1,0 +1,229 @@
+html,
+body {
+    background-color: #fff;
+    color: #636b6f;
+    font-family: "Nunito", sans-serif;
+    font-weight: 200;
+    height: 100vh;
+    margin: 0;
+    overflow-x: scroll;
+    width:100%;
+    /*min-width:1666px; */
+}
+
+.input-group-addon{
+    color:black;
+}
+.home_form_group{
+margin-right:1rem; 
+display:inline-flex;
+}
+.alert{
+    margin-top: 15px;
+}
+.alert > p{
+    margin-bottom: 0;
+}
+.full-height {
+    height: 100vh;
+}
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.position-ref {
+    position: relative;
+}
+.top-right {
+    position: absolute;
+    right: 10px;
+    top: 18px;
+}
+.content {
+    text-align: center;
+}
+.title {
+    font-size: 84px;
+}
+.links > a {
+    color: #636b6f;
+    padding: 0 25px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.m-b-md {
+    margin-bottom: 30px;
+}
+body > div.container > table {
+    margin-top: 1rem;
+}
+.navbar {
+    margin-bottom: 1rem;
+}
+.copyright {
+    position: absolute;
+    bottom: 1rem;
+    width: 100%;
+    text-align: center;
+}
+.submit{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.back{
+    margin-bottom:1rem;
+}
+.pagination, .statusedit{
+    margin-top:0.5rem;
+}
+
+#filterbrand, #filtermodel{
+    display:block;
+    margin-bottom:0;
+}
+.bootstrap-table-filter-control-brand, .bootstrap-table-filter-control-model{
+    display:none;
+}
+
+.bootstrap-table .fixed-table-container .table {
+    margin-bottom: 5rem!important;
+}
+
+.footer{
+    background-color: #343a40!important; 
+    color:white; 
+    margin-top:3rem;
+    padding:10px;
+    text-align:center;
+    font-size:0.8rem;
+    font-weight:100;
+}
+
+.form-control{
+    margin-bottom:0.95rem;
+}
+#navbarSupportedContent > form > input{
+    margin-bottom:0;
+}
+.tox-tinymce{
+    height:300px !important;
+}
+#table > thead > tr > th:nth-child(11){
+    width:13%;
+}
+
+.btn:not(:disabled):not(.disabled) {
+    margin: 3px !important;
+}
+.zindex{
+    opacity:0;
+    cursor:none;
+    visibility:hidden;
+}
+#datavehicles_filter > label > input{
+    display:none !important;
+}
+.selectCol{
+    width:150px;
+}
+
+#datavehicles > thead > tr > th.sorting_asc{
+    width:10px !important;
+}
+#datavehicles > tbody > tr > td > div > div > label.btn.btn-success.toggle-on{
+    line-height: 1; 
+    padding-left: 20px;
+}
+#datavehicles > tbody > tr > td > div > div > label.btn.btn-danger.active.toggle-off{
+    line-height: 1.1;
+    padding-left: 13px;
+}
+.input-group-addon{
+    margin-left:1rem;
+    margin-right:1rem;
+    line-height: 2.5;
+}
+
+.input-daterange::before {
+    content: "From date ";
+    margin-right: 0.5rem;
+    margin-left:3.5rem;
+    line-height: 2.5;
+    color:black;
+}
+.reset{
+    padding: 4px 10px;
+    font-size: 15px;
+    color: white;
+}
+
+.table-bordered thead td, .table-bordered thead th { 
+    border:0 !important; 
+}
+
+.table-bordered td, .table-bordered th { 
+    border: 0; 
+}
+#datavehicles > thead > tr > th:nth-child(9), #datavehicles > thead > tr > th:nth-child(8), #datavehicles > thead > tr > th:nth-child(4), #datavehicles > thead > tr > th:nth-child(5), #datavehicles > thead > tr > th:nth-child(3), #datavehicles > thead > tr > th:nth-child(7){
+    width:50px !important;
+}
+
+tr:nth-child(even) {
+    background: #cccccc26;
+}
+tr:nth-child(odd) {
+    background: #FFF;
+}
+
+.buttoncontrols{
+    margin-left:2rem; 
+    height: 35px; 
+    margin-top: 0rem !important;
+}
+
+#datavehicles{
+    width:102% !important;
+}
+#datavehicles_filter > label{
+    color:white;
+}
+tfoot{
+    background: #343a40;
+    color: white;
+}
+#from_date, #to_date{
+    max-width: 120px;
+    max-height: 33px;
+    margin-top: 4px;
+}
+
+#brand_id, #model_id, #color_id, #engine_id, #bodywork_id{
+    max-width: 170px;
+    width: 120px;
+}
+#color_id, #engine_id, #bodywork_id{
+    margin-right: 1rem;
+}
+
+.btn-warning:hover{
+    color:white;
+}
+.actionsection{
+    margin-left:1rem;
+}
+.searchsection{
+    display:inline-flex;
+}
+.filterres{
+    line-height: 1.6rem;
+}
+
+@media (min-width: 1200px){
+    .container {
+        max-width: 1600px;
+    }
+}
